@@ -1,0 +1,30 @@
+<project default="jar">
+
+	<property name="binfolder" value="build2/classes"/>
+	<path id="classpath">
+        <fileset dir="lib" includes="**/*.jar"/>
+    </path>
+	
+    <target name="clean">
+        <delete dir="build"/>
+    </target>
+
+    <target name="compile">
+        <mkdir dir="${binfolder}"/>
+        <javac srcdir="src" destdir="${binfolder}" classpathref="classpath"/>
+    </target>
+
+    <target name="jar" depends="compile">
+        <mkdir dir="build/jar"/>
+        <jar destfile="build/jar/HelloWorld.jar" basedir="${binfolder}">
+            <manifest>
+                <attribute name="Main-Class" value="oata.HelloWorld"/>
+            </manifest>
+        </jar>
+    </target>
+
+    <target name="run">
+        <java jar="build/jar/HelloWorld.jar" fork="true"/>
+    </target>
+
+</project>
